@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #F0E2BD;
+  background: #211E1A;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  min-height: 100dvh;
+  overflow: hidden;
+  font-family: "Press Start 2P", monospace;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.title {
+  color: #C49A45;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem 0 0.5rem;
+}
+
+#game {
+  position: relative;
+}
+
+.btn {
+  transform: translate(-50%, -50%);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  background: #76543A;
+  color: #F0E2BD;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.how-to-play {
+  position: absolute;
+  top: 82%;
+  left: 50%;
+  display: none;
+}
+
+.start, .play-again, .restart {
+  position: absolute;
+  top: 94%;
+  left: 50%;
+  display: none;
+}
+
+.return {
+  position: absolute;
+  top: 108%;
+  left: 50%;
+  display: none;
+}
+
+#return-popup, #htp-popup {
+  width: 340px;
+  padding: 0.5rem;
+  background: #211E1A;
+  color: #F0E2BD;
+  padding: 0.5rem;
+  border: 2px solid #76543A;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+#return-popup::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#return-popup .btn, #htp-popup .btn {
+  transform: none;
+  margin: 0.25rem;
+}
+
+#htp-popup {
+  max-height: 80dvh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.dpad {
+  position: absolute;
+  top: 118%;
+  left: 26.5%;
+
+  display: grid;
+  grid-template-columns: 60px 60px 60px;
+  grid-template-rows: 60px 60px 60px;
+  gap:4px;
+  display: none;
+}
+
+.dpad button {
+  border: none;
+  border-radius: 0.5rem;
+  background: #76543A;
+  color: #F0E2BD;
+  font-size: 28px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.dpad button:active, .btn:active {
+  background: #B85C38;
+}
+
+.up {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.left {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.down {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.right {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+p {
+  font-family: monospace;
+  text-align: start;
+}

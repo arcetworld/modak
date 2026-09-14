@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MODAK</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  
+</head>
+
+<body>
+  <span class="title">MODAK</span>
+
+    <div id="game">
+      <button 
+        class="how-to-play btn"
+        popovertarget="htp-popup"
+        >HOW TO PLAY</button>
+      
+      <div 
+        id="htp-popup"
+        popover="manual"
+        >
+        
+        <h2>HOW TO PLAY</h2>
+        
+        <h4>YOUR GOAL</h4>
+        <p>
+          Collect Modaks and offer them to Ganesha. Collect as many as you can before the cat catches you.
+        </p>
+
+        <h4>CONTROLS</h4>
+        <p>
+          Use the Arrow Keys or D-Pad to move Mushika.
+        </p>
+
+        <h4>THE CHARACTERS</h4>
+        <p>
+          Due to our artistic limitations, the characters are represented as simple shapes:<br>
+          <strong>Brown rectangle</strong> — Mushika<br>
+          <strong>Gray rectangle</strong> — Cat<br>
+          <strong>Yellow triangle</strong> — Modak
+        </p>
+        <h4>MODAKS</h4>
+        <p>
+          Each Modak disappears after a short time. Collect it before it disappears.
+        </p>
+        <h4>THE CAT</h4>
+        <p>
+          The cat chases Mushika when nearby. If it catches you, you lose your collected Modaks and a life. Each catch makes the cat faster.
+        </p>
+        
+        <h4>CAT PROTECTION</h4>
+        <p>
+          Cat Protection blocks one cat attack without losing your collected Modaks.
+        </p>
+        
+        <h4>DIFFICULTY</h4>
+        <p>
+          As your Modak count grows, Mushika gradually becomes slower. The difficulty reaches its maximum at 20 Modaks.
+        </p>
+        
+        <h4>OFFERING</h4>
+        <p>
+          Return to Ganesha whenever you want to offer your collected Modaks.
+        </p>
+        
+        <button
+          popovertarget="htp-popup"
+          popovertargetaction="hide"
+          class="btn"
+          >OK</button>
+        
+        </div>
+
+      <button class="start btn">START GAME</button>
+
+      <button class="restart btn">TRY AGAIN</button>
+
+      <button 
+        class="return btn"
+        popovertarget="return-popup"
+        >
+        RETURN TO GANESHA
+      </button>
+
+      <div 
+        id="return-popup"
+        popover="manual">
+        <h3>Return to Ganesha?</h3>
+        <h5>You have 
+          <span id="popup-modaks">
+            0
+          </span>
+          Modaks.
+        </h5>
+        
+        <button 
+          popovertarget="return-popup"
+          popovertargetaction="hide"
+          class="btn"
+          >
+          CANCEL
+        </button>
+
+        <button 
+          class="offer-confirm btn"
+          popovertarget="return-popup"
+          popovertargetaction="hide"
+          >
+          CONFIRM
+        </button>   
+      </div>
+
+      <button class="play-again btn">PLAY AGAIN</button>
+
+      <div class="dpad">
+        <button class="up">&#9650;</button>
+        <button class="left">&#9664;</button>
+        <button class="down">&#9660;</button>
+        <button class="right">&#9654;</button>     
+      </div>
+      
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/phaser@4.2.1/dist/phaser.min.js"></script>
+    <script src="game.js"></script>
+
+</body>
+</html>
