@@ -1,0 +1,46 @@
+name: Publish MODAK
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout MODAK
+        uses: actions/checkout@v4
+
+      - name: Checkout Games repository
+        uses: actions/checkout@v4
+        with:
+          repository: arcetworld/Games
+          path: games
+          token: ${{ secrets.GAMES_DEPLOY_TOKEN }}
+
+      - name: Copy MODAK into Games
+        run: |
+          rm -rf games/modak
+          mkdir -p games/modak
+
+          cp index.html style.css game.js games/modak/
+          cp -r assets games/modak/
+
+      - name: Commit and push
+        run: |
+          cd games
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add modak
+
+          if git diff --cached --quiet; then
+            echo "No changes to deploy."
+          else
+            git commit -m "Deploy MODAK"
+            git push
+          fi

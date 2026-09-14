@@ -138,3 +138,8 @@ p {
   font-family: monospace;
   text-align: start;
 }
+
+a {
+  text-decoration: none;
+  color: #E54B4B;
+}
