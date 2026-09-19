@@ -172,7 +172,7 @@ function create() {
   })
 
   // Game Over text
-  gameOverText = this.add.text(200, 200, "Game Over", {
+  gameOverText = this.add.text(200, 200, "GAME OVER", {
     fontFamily: '"Press Start 2P"',
     fontSize: "32px",
     color: "#F0E2BD",
