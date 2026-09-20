@@ -32,6 +32,7 @@ let scene;
 let gameState = "start";
 
 // Assets
+let arcetLogo;
 let ganeshaImg;
 let music;
 
@@ -90,12 +91,19 @@ let restartBtn;
 let returnBtn;
 let cancelBtn;
 let offerConfirmBtn;
-let offeringText;
+let offeringText = [];
 let playAgainBtn;
+
+// Share
+let shareBtn;
+let shareConfirmBtn;
+let playerNameInput;
+let playerName = localStorage.getItem("playerName");
 
 // Preload
 function preload() {
   this.load.image("ganesha", "assets/ganesha.png");
+  this.load.image("arcet", "https://arcetworld.github.io/assets/images/arcet.webp");
 
   this.load.audio("music", "assets/music.mp3");
   this.load.audio("collect", "assets/collect.mp3");
@@ -112,12 +120,16 @@ function create() {
   ganeshaImg.texture.setFilter(Phaser.Textures.FilterMode.LINEAR);
   ganeshaImg.setDisplaySize(280, 280);
 
+  // Arcet logo
+  arcetLogo = this.textures.get("arcet").getSourceImage();
+
   // Start text
-  startText = this.add.text(200, 260, "Collect as many Modaks as you can and offer them to Ganesha!", {
+  startText = this.add.text(200, 270, "COLLECT AS MANY MODAKS AS YOU CAN AND OFFER THEM TO GANESHA!", {
     fontFamily: '"Press Start 2P"',
     fontSize: "16px",
     color: "#F0E2BD",
     align: "center",
+    lineSpacing: 8,
     wordWrap: {
       width: 360,
     },
@@ -134,7 +146,7 @@ function create() {
   htpBtn = document.querySelector(".how-to-play");
   
   // Modak count text
-  modakText = this.add.text(20, 10, "Modaks: 0", {
+  modakText = this.add.text(20, 10, "MODAKS: 0", {
     fontFamily: '"Press Start 2P"',
     fontSize: "16px",
     color: "#F0E2BD",
@@ -143,7 +155,7 @@ function create() {
     // Best offering text
   bestText = this.add.text(
     20, 30,
-                           "Best:" + bestOffering,
+                           "BEST: " + bestOffering,
     {
       fontFamily: '"Press Start 2P"',
       fontSize: "16px",
@@ -179,15 +191,31 @@ function create() {
   }).setOrigin(0.5);
   
   // Offering text
-  offeringText = this.add.text(200, 280, "", {
+  offeringText = [
+  this.add.text(200, 240, "", {
+    fontFamily: '"Press Start 2P"',
+    fontSize: "16px",
+    color: "#F0E2BD",
+  }).setOrigin(0.5),
+
+  this.add.text(200, 274, "", {
     fontFamily: '"Press Start 2P"',
     fontSize: "16px",
     color: "#F0E2BD",
     align: "center",
+    lineSpacing: 4,
     wordWrap: {
       width: 360,
     },
-  }).setOrigin(0.5);
+  }).setOrigin(0.5),
+
+  this.add.text(200, 308, "", {
+    fontFamily: '"Press Start 2P"',
+    fontSize: "16px",
+    color: "#F0E2BD",
+  }).setOrigin(0.5)
+];
+  
   
   // Modak
   modak = this.add.triangle(
@@ -312,6 +340,37 @@ function create() {
     fullScreen();
     startGame();
   });
+
+  // Share button
+  shareBtn = document.querySelector(".share");
+
+  shareBtn.addEventListener("click", () => {
+    playerName = localStorage.getItem("playerName");
+    
+    if (playerName) {
+      shareBtn.removeAttribute("popovertarget");
+      shareGame(playerName);
+    } else {
+      shareBtn.setAttribute("popovertarget", "playername-popup");
+    }   
+  });
+
+  playerNameInput = document.querySelector('input[name="playername"]');
+
+  shareConfirmBtn = document.querySelector(".share-confirm");
+
+  shareConfirmBtn.addEventListener("click", () => {
+    playerName = playerNameInput.value.trim();
+
+    if (!playerName) return;
+
+    localStorage.setItem("playerName", playerName);
+
+    document.querySelector("#playername-popup").removeAttribute("open", "");
+    
+    shareGame(playerName);    
+  });
+
 
   scene.sound.add("meow", {
     loop: true,
@@ -448,12 +507,13 @@ function showStartScreen() {
   cat.setVisible(false);
 
   gameOverText.setVisible(false);
-  offeringText.setVisible(false);
+  offeringText.forEach(text => text.setVisible(false));
 
   dpad.style.display = "none"; 
   restartBtn.style.display = "none";
   returnBtn.style.display = "none";
   playAgainBtn.style.display = "none";
+  shareBtn.style.display = "none";
 }
 
 // Start game
@@ -472,7 +532,7 @@ function startGame() {
   bestText.setOrigin(0);
 
   // Reset HUD
-  modakText.setText("Modaks:0");
+  modakText.setText("MODAKS: 0");
   heartsText.setText("♥♥♥");
   protectionIcon.setText(
     catProtection > 0
@@ -514,9 +574,10 @@ function startGame() {
   startText.setVisible(false);
   startBtn.style.display = "none";
   htpBtn.style.display = "none";
+  shareBtn.style.display = "none";
   gameOverText.setVisible(false);
   restartBtn.style.display = "none";
-  offeringText.setVisible(false);
+  offeringText.forEach(text => text.setVisible(false));
   playAgainBtn.style.display = "none";
 
   // Reset Mushika position
@@ -580,7 +641,7 @@ function showOfferingScreen() {
       bestOffering
     );
 
-    bestText.setText("Best:" + bestOffering);
+    bestText.setText("BEST: " + bestOffering);
 
     newBest = true;
     
@@ -598,35 +659,47 @@ function showOfferingScreen() {
       ? "×" + catProtection
       : ""
     );
+  } else {
+    newBest = false;
   }
 
   if (newBest) {
-    offeringText.setText(
-      "NEW BEST!\n\n" +
-      "Offering " +
+    offeringText[0].setText(
+      "NEW BEST!");
+    offeringText[1].setText(
+      "OFFERING " +
       modakCount +
-    " Modaks to Ganesha!\n\n" +
-      "Cat Protection +1"
-  );
+      " MODAKS TO GANESHA!"
+    );
+    offeringText[2].setText("CAT PROTECTION +1");
     bestText.setVisible(false);
 }
   else {
-    offeringText.setText(
-      "Offering " +
+    offeringText[1].setText(
+      "OFFERING " +
       modakCount +
-      " Modaks to Ganesha!"
+      " MODAKS TO GANESHA!"
     );
     bestText.setVisible(true);
   
-  bestText.setPosition(200, 320);
+  bestText.setPosition(200, 308);
 bestText.setOrigin(0.5);
   }
 
     // Show
   ganeshaImg.setVisible(true);
-  offeringText.setVisible(true);
+  
+  if (newBest) {
+    offeringText.forEach(
+      text => text.setVisible(true)); 
+  } else {
+    offeringText[0].setVisible(false);
+    offeringText[1].setVisible(true);
+    offeringText[2].setVisible(false);
+  }
   
   playAgainBtn.style.display = "block";
+  shareBtn.style.display = "block";
 
   //Hide
   modakText.setVisible(false);
@@ -649,6 +722,7 @@ function showGameOverScreen() {
   // Show
 gameOverText.setVisible(true);
   restartBtn.style.display = "block";
+  shareBtn.style.display = "block";
 
   // Hide
   modakText.setVisible(false);
@@ -714,7 +788,7 @@ function collectModak() {
   }
   
   modakCount++;
-  modakText.setText("Modaks:" + modakCount);
+  modakText.setText("MODAKS: " + modakCount);
   scene.sound.play("collect");
   spawnModak(this);
 }
@@ -787,7 +861,7 @@ function catCaught() {
     );
   } else {
     modakCount = 0;
-    modakText.setText("Modaks:" + modakCount);
+    modakText.setText("MODAKS: " + modakCount);
 
     hearts--;
     catSpeed += 0.5;
@@ -813,6 +887,69 @@ function catCaught() {
       mushika.y
     ) < catRadar
   );
+}
+
+// Share game
+async function shareGame(playerName) {
+  const canvas = document.createElement("canvas");
+
+  canvas.width = 800;
+  canvas.height = 800;
+
+  const ctx = canvas.getContext("2d");
+
+  // Background
+  ctx.fillStyle = "#2D604B";
+  ctx.fillRect(0, 0, 800, 800);
+
+  // MODAK
+  ctx.fillStyle = "#C49A45";
+  ctx.font = '48px "Press Start 2P"';
+  ctx.textAlign = "center";
+  ctx.fillText("MODAK", 400, 80);
+
+  // Ganesha image
+  const ganeshaShareImg = ganeshaImg.texture.getSourceImage();
+
+ctx.drawImage(ganeshaShareImg, 125, 60, 550, 550);
+
+  // Best score
+  ctx.fillStyle = "#F0E2BD";
+  ctx.font = '24px "Press Start 2P"';
+  ctx.fillText("BEST SCORE", 400, 620);
+
+  ctx.font = '48px "Press Start 2P"';
+  ctx.fillText(bestOffering, 400, 675);
+
+  // Player name
+  ctx.textAlign = "left";
+  ctx.font = '24px "Press Start 2P"';
+  ctx.fillText(`@${playerName}`, 40, 760);
+
+  // Arcet logo
+  ctx.textAlign = "right";
+  ctx.drawImage(arcetLogo, 700, 715, 60, 60);
+
+  const blob = await new Promise(resolve => {
+  canvas.toBlob(resolve, "image/png");
+});
+
+const file = new File(
+  [blob],
+  "modak.png",
+  { type: "image/png" }
+);
+
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    await navigator.share({
+      title: "MODAK",
+      text: `My best score in MODAK is ${bestOffering}.\nCan you beat it?`,
+  url: "https://arcetworld.github.io/games/modak/",
+      files: [file]
+    });
+} else {
+  alert("File sharing is NOT supported");
+  }
 }
 
 function fullScreen() {

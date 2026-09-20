@@ -93,6 +93,27 @@
 
       <button class="start btn">START GAME</button>
 
+      <button 
+        class="share btn"
+        popovertarget="playername-popup"
+        >SHARE GAME</button>
+
+      <div
+        id="playername-popup"
+        popover="manual">
+        <h3>ENTER YOUR NAME</h3>
+        <input 
+          type="text"
+          name="playername"
+          placeholder="NAME">
+
+        <button 
+        class="share-confirm btn"
+        popovertarget="playername-popup"
+          popovertargetaction="hide"
+        >SHARE GAME</button>
+        </div>
+
       <button class="restart btn">TRY AGAIN</button>
 
       <button 
@@ -105,12 +126,12 @@
       <div 
         id="return-popup"
         popover="manual">
-        <h3>Return to Ganesha?</h3>
-        <h5>You have 
+        <h3>RETURN TO GANESHA?</h3>
+        <h5>YOU HAVE
           <span id="popup-modaks">
             0
           </span>
-          Modaks.
+          MODAKS
         </h5>
         
         <button 
@@ -127,7 +148,7 @@
           popovertargetaction="hide"
           >
           CONFIRM
-        </button>   
+        </button>
       </div>
 
       <button class="play-again btn">PLAY AGAIN</button>

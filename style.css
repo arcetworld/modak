@@ -40,10 +40,11 @@ body {
   font-family: inherit;
 }
 
-.how-to-play {
+.how-to-play, .share {
   position: absolute;
-  top: 82%;
+  top: 84.5%;
   left: 50%;
+  white-space: nowrap;
   display: none;
 }
 
@@ -61,22 +62,26 @@ body {
   display: none;
 }
 
-#return-popup, #htp-popup {
+#return-popup, #htp-popup, #playername-popup {
   width: 340px;
-  padding: 0.5rem;
+  padding: 1rem;
   background: #211E1A;
   color: #F0E2BD;
-  padding: 0.5rem;
   border: 2px solid #76543A;
   border-radius: 0.5rem;
   text-align: center;
+  line-height: 1.5rem;
 }
 
-#return-popup::backdrop {
+#return-popup::backdrop,
+#htp-popup::backdrop, 
+#playername-popup::backdrop {
   background: rgba(0, 0, 0, 0.6);
 }
 
-#return-popup .btn, #htp-popup .btn {
+#return-popup .btn,
+#htp-popup .btn,
+#playername-popup .btn {
   transform: none;
   margin: 0.25rem;
 }
@@ -142,4 +147,16 @@ p {
 a {
   text-decoration: none;
   color: #E54B4B;
+}
+
+#playername-popup input {
+  width: 90%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 2px solid #76543A;
+  border-radius: 0.25rem;
+  background: #F0E2BD;
+  color: #211E1A;
+  font-family: inherit;
+  font-size: 14px;
 }
