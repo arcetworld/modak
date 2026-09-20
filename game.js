@@ -943,12 +943,12 @@ const file = new File(
   if (navigator.canShare && navigator.canShare({ files: [file] })) {
     await navigator.share({
       title: "MODAK",
-      text: `My best score in MODAK is ${bestOffering}.\nCan you beat it?`,
+      text: `My best score in MODAK is ${bestOffering}.\nCan you beat it?\n`,
   url: "https://arcetworld.github.io/games/modak/",
       files: [file]
     });
 } else {
-  alert("File sharing is NOT supported");
+  alert("Sharing is NOT supported");
   }
 }
 
