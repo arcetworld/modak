@@ -146,7 +146,7 @@ function create() {
   htpBtn = document.querySelector(".how-to-play");
   
   // Modak count text
-  modakText = this.add.text(20, 10, "MODAKS: 0", {
+  modakText = this.add.text(20, 10, "MODAKS:0", {
     fontFamily: '"Press Start 2P"',
     fontSize: "16px",
     color: "#F0E2BD",
@@ -155,7 +155,7 @@ function create() {
     // Best offering text
   bestText = this.add.text(
     20, 30,
-                           "BEST: " + bestOffering,
+                           "BEST:" + bestOffering,
     {
       fontFamily: '"Press Start 2P"',
       fontSize: "16px",
@@ -532,7 +532,7 @@ function startGame() {
   bestText.setOrigin(0);
 
   // Reset HUD
-  modakText.setText("MODAKS: 0");
+  modakText.setText("MODAKS:0");
   heartsText.setText("♥♥♥");
   protectionIcon.setText(
     catProtection > 0
@@ -641,7 +641,7 @@ function showOfferingScreen() {
       bestOffering
     );
 
-    bestText.setText("BEST: " + bestOffering);
+    bestText.setText("BEST:" + bestOffering);
 
     newBest = true;
     
@@ -788,7 +788,7 @@ function collectModak() {
   }
   
   modakCount++;
-  modakText.setText("MODAKS: " + modakCount);
+  modakText.setText("MODAKS:" + modakCount);
   scene.sound.play("collect");
   spawnModak(this);
 }
@@ -861,7 +861,7 @@ function catCaught() {
     );
   } else {
     modakCount = 0;
-    modakText.setText("MODAKS: " + modakCount);
+    modakText.setText("MODAKS:" + modakCount);
 
     hearts--;
     catSpeed += 0.5;
